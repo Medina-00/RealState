@@ -1,0 +1,33 @@
+﻿@model RealState.Core.Application.ViewModel.Propiedad.SavePropiedadViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/Alert.css">
+    <title>Alert</title>
+</head>
+<body>
+    <div class="container">
+        <form asp-controller="User" asp-action="AccessDenied" class="container">
+            <div class="Danger advice">
+                <i class="bi bi-exclamation-octagon-fill"></i>
+                <p>NO TIENES PERMISO PARA ENTRAR A ESTA A SECCION , VUELVA A INICIAR SECCION CON UN USER QUE TENGA PERMISO..</p>
+
+
+
+                
+                <a asp-controller="User" asp-action="Login" class="btn">Login <i class="bi bi-x-octagon"></i></a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

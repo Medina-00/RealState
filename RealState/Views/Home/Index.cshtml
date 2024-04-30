@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "Home Admin";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+
+}
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-center-dark"> Home Admin (dashboard) </h2>
+        </div>
+
+
+    </div>
+</div>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white">
+                <h5 class="card-title text-center">- Propiedades - </h5>
+                <div class="card-body text-center"><i class="bi bi-send-check-fill"></i><strong> #  @ViewBag.Propiedades </strong></div>
+
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white">
+                <h5 class="card-title text-center">- Agentes Activos -</h5>
+                <div class="card-body text-center"><i class="bi bi-send-check"></i><strong> # @ViewBag.AgentesActivos </strong></div>
+
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white">
+                <h5 class="card-title text-center">- Agentes Inactivos -</h5>
+                <div class="card-body text-center"><i class="bi bi-wallet2"></i><strong> #  @ViewBag.AgentesInactivos</strong></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white">
+                <h5 class="card-title text-center">- Clientes Activos -</h5>
+                <div class="card-body text-center"><i class="bi bi-person-check-fill"></i><strong> #  @ViewBag.ClientesActivos</strong> </div>
+
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white">
+                <h5 class="card-title text-center">- Clientes Inictivos -</h5>
+                <div class="card-body text-center"><i class="bi bi-person-dash-fill"></i> <strong> # @ViewBag.ClientesInactivos  </strong> </div>
+
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white">
+                <h5 class="card-title text-center">- Desarrolladores Activos -</h5>
+                <div class="card-body text-center"><i class="bi bi-wallet2"></i><strong> #  @ViewBag.DesarrolladoresActivos</strong></div>
+
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-dark text-white">
+                <h5 class="card-title text-center">- Desarrolladores Inactivos -</h5>
+                <div class="card-body text-center"><i class="bi bi-people"></i><strong> #  @ViewBag.DesarrolladoresInactivos</strong></div>
+
+            </div>
+        </div>
+    </div>
+</div>

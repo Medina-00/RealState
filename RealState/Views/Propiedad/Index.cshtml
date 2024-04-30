@@ -1,0 +1,131 @@
+﻿@using RealState.Core.Application.ViewModel.Propiedad
+@using RealState.Core.Application.ViewModel.TipoPropiedad
+@using RealState.Core.Application.ViewModel.TipoVenta
+@model IEnumerable<RealState.Core.Application.ViewModel.Propiedad.PropiedadViewModel>
+@using RealState.Core.Application.Dtos.Account.Response
+@using Microsoft.AspNetCore.Http
+@using RealState.Core.Application.Helpers;
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    var User = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
+    var Cliente = User != null ? User.Roles.Any(r => r == "Cliente") : false;
+    var Agente = User != null ? User.Roles.Any(r => r == "Agente") : false;
+    var Administrador = User != null ? User.Roles.Any(r => r == "Administrador") : false;
+}
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="home">
+
+        <section class="center">
+
+            <form  asp-controller="Propiedad" asp-action="Index">
+            <h3>Encuentra Tu Hogar Por estos Filtros</h3>
+
+                <div class="flex">
+                    <div class="box">
+                        <p>Tipo de Venta <span>*</span></p>
+                    <select name="tipoventa" asp-items="@(new SelectList(ViewBag.TipoVentas,"Id","Nombre"))" class="input" required>
+                            <option value="">Seleccione un Tipo de Venta</option>
+                        </select>
+                    </div>
+                    <div class="box">
+                    <p>Tipo de Propiedad <span>*</span></p>
+                    <select name="tipopropiedad" asp-items="@(new SelectList(ViewBag.TipoPropiedad,"Id","Nombre"))" class="input" required>
+                        <option value="">Seleccione un tipo De Propiedad</option>
+                    </select>
+                    </div>
+                    <div class="box">
+                    <p>Cant. Baños <span>*</span></p>
+                    <input type="text" name="baños" required maxlength="50"  class="input" >
+                    </div>
+                    <div class="box">
+                    <p>Cant. Habitaciones <span>*</span></p>
+                    <input type="text" name="habitaciones" required maxlength="50"  class="input" >
+                    </div>
+                    <div class="box">
+                        <p>Precio Minimo <span>*</span></p>
+                    <input type="text" name="precionMinimo" required maxlength="50"  class="input" >
+                    </div>
+                    <div class="box">
+                        <p>Precio Maximo <span>*</span></p>
+                    <input type="text" name="precioMaximo" required maxlength="50" class="input" >
+                    </div>
+                </div>
+                <input type="submit" value="search property" name="search" class="btn">
+            </form>
+
+            <form asp-controller="Propiedad" asp-action="Index">
+            <h3>Encuentra Tu Hogar Por El Numero</h3>
+                <div class="box">
+                    <p>enter Number <span>*</span></p>
+                <input type="text" name="codigo" required maxlength="6" placeholder="ingrese el codigo" class="input" >
+                </div>
+
+                <input type="submit" value="search property" name="search" class="btn">
+            </form>
+        </section>
+
+
+
+    </div>
+
+    
+    
+
+    
+
+    <section class="listings">
+
+        <h1 class="heading">Propiedades Disponibles</h1>
+
+        <div class="box-container">
+
+               
+                @foreach (PropiedadViewModel item in Model)
+                {
+                    <div class="box">
+                                <div class="thumb">
+                                    @if(User != null)
+                                    {
+                                        <a asp-controller="PropiedadFavorita" asp-action="Create" asp-route-Id="@item.IdPropiedad" class="save">
+                                            <button type="submit" name="save" class="far fa-heart"></button>
+                                        </a>
+                                    }
+                                    <img src="@item.ImagenPrincipal" alt="">
+                                </div>
+                    
+                            @foreach (TipoPropiedadViewModel tipoPropiedad in ViewBag.TipoPropiedad)
+                            {
+                                if (tipoPropiedad.Id == item.TipoPropiedadId)
+                                {
+                                    <p class="location"><strong>Tipo Propiedad:</strong> <span> @tipoPropiedad.Nombre</span></p>
+
+                            
+                                }
+                            }
+                            @foreach (TipoVentaViewModel tipoVenta in ViewBag.TipoVentas)
+                            {
+                                if (tipoVenta.Id == item.TipoVentaId)
+                                {
+                                    <p class="location"><strong>Tipo Venta:</strong> <span> @tipoVenta.Nombre</span></p>
+                                }
+                            }
+                            <p class="location"><strong>Codigo:</strong> <span> @item.Numero6Digitos</span></p>
+                            <p class="location"><strong>precio:</strong> <span>$RD  @((int)item.Precio)</span></p>
+                            <div class="flex">
+                                <p><i class="fas fa-bed"></i><span>@item.CantidadHabitaciones</span></p>
+                                <p><i class="fas fa-bath"></i><span>@item.CantidadBaños</span></p>
+                                <p><i class="fas fa-maximize"></i><span>@((int)item.Tamaño)</span></p>
+                            </div>
+                        <a asp-controller="Propiedad" asp-action="Details" asp-route-Id="@item.IdPropiedad" class="btn">view property</a>
+                    </div>
+                }
+
+        </div>
+
+    </section>
+
+    
+

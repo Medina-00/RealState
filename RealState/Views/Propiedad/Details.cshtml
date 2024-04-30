@@ -1,0 +1,120 @@
+﻿@using RealState.Core.Application.ViewModel.Mejora
+@using RealState.Core.Application.ViewModel.PropiedadMejora
+@using RealState.Core.Application.ViewModel.TipoPropiedad
+@using RealState.Core.Application.ViewModel.TipoVenta
+@using RealState.Core.Application.ViewModel.User
+@model RealState.Core.Application.ViewModel.Propiedad.SavePropiedadViewModel
+
+@{
+    ViewData["Title"] = "Details";
+   
+
+}
+
+
+<style>
+    .agent-photo {
+    width: 100px;
+    height: 100px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    margin-bottom: 10px; 
+}
+
+</style>
+
+
+<section class="view-property">
+
+   <div class="details">
+      <div class="thumb">
+         <div class="big-image">
+            <img id="bigImg" src="@Model.ImagenPrincipal" alt="">
+         </div>
+         <div class="small-images">
+                    <img src="@Model.ImagenPrincipal" alt="" onclick="changeBigImage('@Model.ImagenPrincipal')">
+                    <img src="@Model.Imagen1" alt="" onclick="changeBigImage('@Model.Imagen1')">
+                    <img src="@Model.Imagen2" alt="" onclick="changeBigImage('@Model.Imagen2')">
+                    <img src="@Model.Imagen3" alt="" onclick="changeBigImage('@Model.Imagen3')">
+         </div>
+      </div>
+      <h3 class="name">Detalle del Agente</h3>
+      <div class="info">
+                @foreach (UserViewModel user in ViewBag.User)
+                {
+                    if(Model.UserId == user.UserId)
+                    {
+                    <img src="@user.Foto" alt="Foto del Agente" class="agent-photo">
+
+                        <p><i class="fas fa-tag"></i><span>@user.CantidadPropiedad</span></p>
+                        <p><i class="fas fa-user"></i><span>@user.Nombre @user.Apellido</span></p>
+                        <p><i class="fas fa-phone"></i><a href="tel:@user.Phone">@user.Phone</a></p>
+                        <p><i class="fas fa-building"></i><span>@user.Cedula</span></p>
+                        <p><i class="fas fa-house"></i><a href="mailto:@user.Email">@user.Email</a></p>
+                    }
+                }
+               
+      </div>
+      <h3 class="title">Detalle de la propiedad</h3>
+      <div class="flex">
+         <div class="box">
+                @foreach (TipoPropiedadViewModel tipoPropiedad in ViewBag.TipoPropiedad)
+                {
+                    if (tipoPropiedad.Id == Model.TipoPropiedadId)
+                    {
+                        <p><i>Tipo de Propiedad :</i><span>@tipoPropiedad.Nombre</span></p>
+                    }
+                }
+
+                @foreach (TipoVentaViewModel tipoVenta in ViewBag.TipoVentas)
+                {
+                    if (tipoVenta.Id == Model.TipoVentaId)
+                    {
+                        <p><i>Tipo de Propiedad :</i><span>@tipoVenta.Nombre</span></p>
+                    }
+                }
+                    <p><i>Codigo :</i><span>@Model.Numero6Digitos</span></p>
+                    <p><i>Baños :</i><span>@Model.CantidadBaños</span></p>
+                    <p><i>Habitaciones :</i><span>@Model.CantidadHabitaciones</span></p>
+                    <p><i>Tamaño :</i><span>@Model.Tamaño sqft</span></p>
+                    <p><i>Precio :</i><span>$RD - @Model.Precio </span></p>
+
+           
+         </div>
+         
+      </div>
+      <h3 class="title">Mejoras</h3>
+      <div class="flex">
+         <div class="box">
+                    @foreach (PropiedadMejoraViewModel propiedadMejora in ViewBag.PropiedadMejora)
+                    {
+                        foreach (MejoraViewModel mejora in ViewBag.Mejoras)
+                        {
+                            if (propiedadMejora.IdMejora == mejora.Id)
+                            {
+                                <p><i class="fas fa-check"></i><span>@mejora.Nombre : @mejora.Descripcion</span></p>
+                            }
+                        }
+                    }
+                    
+            
+         </div>
+        
+      </div>
+      <h3 class="title">description de la Propiedad</h3>
+      <p class="description">@Model.Descripcion</p>
+     
+   </div>
+
+</section>
+
+
+<script>
+   function changeBigImage(newSrc) {
+      document.getElementById('bigImg').src = newSrc;
+   }
+</script>
+
+
+
+

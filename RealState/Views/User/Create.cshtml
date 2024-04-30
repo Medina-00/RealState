@@ -1,0 +1,127 @@
+﻿ @model RealState.Core.Application.ViewModel.User.SaveUserViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/css/Style.css">
+    <title>Register</title>
+    <style>
+        .column {
+            float: left;
+            width: 50%;
+            padding: 0 15px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+       
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, black, #2f5684) no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <form asp-controller="User" asp-action="Create" enctype="multipart/form-data">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            @if (Model.HasError)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>@Model.Error</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <h1>Register</h1>
+            
+                    <div class="text-box">
+                        <input type="text" asp-for="Nombre" placeholder="First Name" required>
+                        <i class='bx bxs-user'></i>
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <div class="text-box">
+                        <input type="text" asp-for="Apellido" placeholder="Last Name" required>
+                        <i class='bx bxs-user'></i>
+                        <span asp-validation-for="Apellido" class="text-danger"></span>
+                    </div>
+
+                    <div class="text-box">
+                        <input type="text" asp-for="UserName" placeholder="Username" required>
+                        <i class='bx bxs-user'></i>
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="text-box">
+                        <input type="email" asp-for="Email" placeholder="Email" required>
+                        <i class='bx bxs-envelope'></i>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="text-box">
+                        <input type="tel" asp-for="Phone" placeholder="Phone" required>
+                        <i class='bx bxs-phone'></i>
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="text-box">
+                        <input type="file" asp-for="File" accept="image/*" required>
+                        <i class='bx bxs-camera'></i>
+                        <span asp-validation-for="File" class="text-danger"></span>
+                    </div>
+                
+                    <div class="text-box">
+                        <input type="password" asp-for="Password" placeholder="Password" required>
+                        <i class='bx bxs-lock'></i>
+                         <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+            
+            
+                    <div class="text-box">
+                        <input type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" required>
+                        <i class='bx bxs-lock'></i>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                
+                
+                    <div class="text-box">
+                        <select asp-for="Rol" required>
+                            <option value="" disabled selected>Select User Type</option>
+                            <option value="Cliente">Cliente</option>
+                            <option value="Agente">Agente</option>
+                        </select>
+                         <span asp-validation-for="Rol" class="text-danger"></span>
+                    </div>
+                
+            
+            <button type="submit" class="btn">Register</button>
+            <div class="register-link">
+                <p>Already have an account?
+                    <a asp-controller="User"asp-action="Login">Login</a>
+                </p>
+                <p>
+                    Back to Home
+                    <a asp-controller="Propiedad" asp-action="Index">Home</a>
+                </p>
+            </div>
+            
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+

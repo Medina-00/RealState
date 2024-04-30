@@ -1,0 +1,146 @@
+﻿@using RealState.Core.Application.ViewModel.User
+@model IEnumerable<RealState.Core.Application.ViewModel.User.UserViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+
+}
+
+@if (ViewBag.type == "Administrador")
+{
+    <div class="container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="text-dark"> Administrador </h2>
+            </div>
+            <div class="col-6 text-end">
+                <a asp-action="Create" class="btn btn-dark" asp-route-type="Administrador">
+                    <i class="bi bi-patch-plus"></i>&nbsp; Create User
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <hr />
+}
+else if (ViewBag.type == "Desarrollador")
+{
+    <div class="container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="text-dark"> Desarrollador </h2>
+            </div>
+            <div class="col-6 text-end">
+                <a asp-action="Create" class="btn btn-dark" asp-route-type="Desarrollador">
+                    <i class="bi bi-patch-plus"></i>&nbsp; Create User
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <hr />
+}
+else
+{
+    <div class="container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="text-dark"> Agentes </h2>
+            </div>
+           
+
+        </div>
+    </div>
+    <hr />
+}
+
+<div class="container-fluid">
+
+
+
+    <div class="row">
+        @foreach (UserViewModel item in Model)
+        {
+            <div class="col-4 mb-3">
+                <div class="card shadow-sm">
+
+                    <img src="@item.Foto" class="img-product-size bd-placeholder-img card-img-top" />
+
+
+                    <div class="card-body">
+                        <p class="card-text"><strong>Nombre Completo:</strong> @item.Nombre @item.Apellido</p>
+                        <p class="card-text"><strong>UserName:</strong>@item.UserName</p>
+                        <p class="card-text"><strong>Email:</strong>@item.Email</p>
+                        <p class="card-text"><strong>Roles:</strong>@item.Rol</p>
+
+                        @if (item.Rol != "Agente")
+                        {
+                            <p class="card-text"><strong>Cedula:</strong>@item.Cedula</p>
+                        }
+                        @if (item.Activo == true)
+                        {
+                            <p class="card-text"><strong>Estado:</strong>Activo</p>
+                        }
+                        else
+                        {
+                            <p class="card-text"><strong>Estado:</strong>Inactivo</p>
+                        }
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                @if (item.Rol == "Agente")
+                                {
+                                    <a asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-sm btn-outline-dark">Eliminar</a>
+                                    @if (item.Activo == true)
+                                    {
+                                        <a asp-action="Activar" asp-route-id="@item.UserId" asp-route-desicion="Inactivar"  class="btn btn-sm btn-outline-dark">Inactivar</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Activar" asp-route-id="@item.UserId" asp-route-desicion="Activar" class="btn btn-sm btn-outline-dark">Activar</a>
+
+                                    }
+                                }
+                                else if (item.Rol == "Administrador")
+                                {
+                                    @if (item.Activo == true)
+                                    {
+                                        <a asp-action="Activar" asp-route-id="@item.UserId" asp-route-desicion="Inactivar"  class="btn btn-sm btn-outline-dark">Inactivar</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Activar" asp-route-id="@item.UserId" asp-route-desicion="Activar"  class="btn btn-sm btn-outline-dark">Activar</a>
+
+                                    }
+                                    <a asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-sm btn-outline-dark">Eliminar</a>
+                                    <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-outline-dark" >Editar</a>
+                                }
+                                else if (item.Rol == "Desarrollador")
+                                {
+                                    <a asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-sm btn-outline-dark">Eliminar</a>
+                                    <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-outline-dark" >Editar</a>
+                                    @if (item.Activo == true)
+                                    {
+                                        <a asp-action="Activar" asp-route-id="@item.UserId" asp-route-desicion="Inactivar"  class="btn btn-sm btn-outline-dark">Inactivar</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Activar" asp-route-id="@item.UserId" asp-route-desicion="Activar"  class="btn btn-sm btn-outline-dark">Activar</a>
+
+                                    }
+                                }
+                                
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+<hr />
+

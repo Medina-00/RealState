@@ -1,0 +1,69 @@
+﻿@model RealState.Core.Application.ViewModel.User.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/css/Style.css" />
+    <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, black, #2f5684) no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <form asp-controller="User" asp-action="Login">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            @if (Model.HasError)
+            {
+                <div >
+                    <p>@Model.Error</p>
+                    
+                </div>
+            }
+
+            <h1>Login</h1>
+            <div class="text-box">
+                <input type="text" asp-for="Email" placeholder="Email" required>
+                <i class='bx bxs-user-circle'></i>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="text-box">
+                <input type="password" asp-for="Password" placeholder="Password" required>
+                <i class='bx bxs-lock'></i>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+
+            <button type="submit" class="btn">Login</button>
+
+            <div class="register-link">
+                <p>
+                    Dont have an account?
+                    <a asp-controller="User" asp-action="Create">Registrate</a>
+                </p>
+                <p>
+                    Back to Home
+                    <a asp-controller="Propiedad" asp-action="Index">Home</a>
+                </p>
+            </div>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

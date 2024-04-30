@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Times New Roman', Times, serif;
+}
+body{
+    background-color:black;
+}
+.advice {
+    background-color: rgb(208, 255, 0);
+    border: solid 2px rgb(0, 0, 0);
+    color: black;
+    border-radius: .3rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+.Success {
+    background-color: rgb(62, 174, 99);
+    border: solid 2px rgb(0, 0, 0);
+    color: black;
+}
+.Danger {
+    background-color: red;
+    border: solid 2px rgb(0, 0, 0);
+    color: black;
+}
+button {
+    padding: 1rem;
+    background: transparent;
+    border-radius: 10%;
+}
+
+    button:hover {
+        color: white;
+        background-color: black;
+        transition: 0.5s;
+    }

@@ -1,0 +1,85 @@
+﻿@model RealState.Core.Application.ViewModel.User.UpdateUserViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/Style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Edit</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, black, #2f5684) no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <form asp-controller="User" asp-action="Edit" enctype="multipart/form-data">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            @if (Model.HasError)
+            {
+                <div>
+                    <p>@Model.Error</p>
+                    
+                </div>
+            }
+            <h1>Edit Account</h1>
+            <div class="row">
+                <div class="text-box">
+                    <input type="text" asp-for="UserId" readonly required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="column">
+                    <div class="text-box">
+                        <input type="text" asp-for="Nombre" placeholder="First Name" required>
+                        <i class='bx bxs-user'></i>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="text-box">
+                        <input type="text" asp-for="Apellido" placeholder="Last Name" required>
+                        <i class='bx bxs-user'></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="text-box">
+                        <input type="tel" asp-for="Phone" placeholder="Phone" required>
+                        <i class='bx bxs-phone'></i>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="text-box">
+                        <input type="file" asp-for="File" accept="image/*" required>
+                        <i class='bx bxs-camera'></i>
+                    </div>
+                </div>
+            </div>
+           
+            <button type="submit" class="btn">Editar</button>
+            <div class="register-link">
+                <p>
+                    Back to Home
+                    <a asp-controller="Propiedad" asp-action="IndexAgente">Home</a>
+                </p>
+            </div>
+        </form>
+    </div>
+   
+</body>
+</html>
+

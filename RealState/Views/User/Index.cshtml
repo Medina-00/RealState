@@ -1,0 +1,86 @@
+﻿@using RealState.Core.Application.ViewModel.User
+@model IEnumerable<RealState.Core.Application.ViewModel.User.UserViewModel>
+
+@{
+    ViewData["Title"] = "Agentes";
+}
+
+<style>
+    .search-form {
+        margin-bottom: 20px;
+    }
+
+        .search-form form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search-form input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .search-form button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff; 
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            .search-form button:hover {
+                background-color: #0056b3; 
+            }
+
+</style>
+
+
+
+<section>
+    <div class="search-form">
+        <form asp-controller="User" asp-action="Index">
+            <input type="text" name="search" placeholder="Buscar agentes...">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+    <div class="container">
+
+
+
+             @foreach (UserViewModel item in Model)
+             {
+                 <a asp-controller="Propiedad" asp-action="Index" asp-route-Id="@item.UserId">
+                        <div class="card">
+                                <div class="Content">
+
+                                    <div class="imbBx"><img src="@item.Foto"></div>
+
+                                    <div class="contentBx">
+                                        <h3><strong>Nombre: @item.Nombre @item.Apellido</strong> </h3>
+                                        <h3><string>Cantidad de propiedades : @item.CantidadPropiedad </string></h3>
+                                    </div>
+
+
+                                </div>
+
+
+                        </div>
+                 </a>
+             }
+
+
+
+    </div>
+
+</section>
+       
+
+
+         

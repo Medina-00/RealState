@@ -1,0 +1,152 @@
+﻿@model RealState.Core.Application.ViewModel.Propiedad.SavePropiedadViewModel
+
+@{
+    int numMejoras = Model.Mejoras.Count();
+    ViewData["Title"] = "Edit";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/css/Style.css">
+    <title></title>
+    
+
+</head>
+<body>
+    <div class="wrapper">
+        <form asp-controller="Propiedad" asp-action="Edit" enctype="multipart/form-data">
+            <h1>Creando Nueva Propiedad!!</h1>
+
+            <div class="text-box">
+                <input readonly asp-for="IdPropiedad"/>
+                <i class='bx bx-money-withdraw'></i>
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div class="text-box">
+                <select asp-for="TipoPropiedadId" asp-items="@(new SelectList(Model.TipoPropiedad,"Id","Nombre"))" class="form-select" required>
+                    <option value="">Seleccione un Tipo De Propiedad</option>
+                </select>
+                <span asp-validation-for="TipoPropiedadId" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="text-box">
+                <select asp-for="TipoVentaId" asp-items="@(new SelectList(Model.TipoVenta,"Id","Nombre"))" class="form-select" required>
+                    <option value="">Seleccione un Tipo de Venta</option>
+                </select>
+                <span asp-validation-for="TipoVentaId" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="text-box">
+                <input asp-for="Precio" required placeholder="Precio" />
+                <i class='bx bx-money-withdraw'></i>
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+
+
+            <div class="text-box">
+                <input asp-for="Tamaño" required placeholder="Tamaño" />
+
+                <i class='bx bx-square-rounded'></i>
+                <span asp-validation-for="Tamaño" class="text-danger"></span>
+            </div>
+
+
+
+
+
+            <div class="text-box">
+                <input asp-for="CantidadHabitaciones" required placeholder="Habitaciones" />
+                <i class='bx bx-bed'></i>
+                <span asp-validation-for="CantidadHabitaciones" class="text-danger"></span>
+            </div>
+
+
+            <div class="text-box">
+                <input asp-for="CantidadBaños" required placeholder="Baños" />
+                <i class='bx bx-bath'></i>
+                <span asp-validation-for="CantidadBaños" class="text-danger"></span>
+            </div>
+
+            <div class="text-box">
+                <h5>Mejoras Disponibles</h5>
+                <br />
+                <span id="mejoraValidation" class="text-danger"></span>
+                @foreach (var mejora in Model.Mejoras)
+                {
+                    <div class="form-check">
+                        <label for="@($"mejora-{mejora.Id}")" class="form-check-label">@mejora.Nombre</label>
+                        <input type="checkbox" id="@($"mejora-{mejora.Id}")" name="propiedadMejoras" value="@mejora.Id" class="form-check-input" />
+                    </div>
+                }
+
+            </div>
+            @for (int i = 0; i < numMejoras; i++)
+            {
+                <br />
+            }
+            <br /><br /><br /><br />
+
+
+
+            <div class="text-box">
+                <input asp-for="Descripcion" required placeholder="Descripcion">
+                <i class='bx bx-home-alt-2'></i>
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+
+
+            <div class="text-box">
+                <input type="file" asp-for="FilePrincipal" accept="image/*">
+                <i class='bx bxs-camera'></i>
+            </div>
+            <span asp-validation-for="FilePrincipal" class="text-danger"></span>
+
+            <div class="text-box">
+                <input type="file" asp-for="File1" accept="image/*">
+                <i class='bx bxs-camera'></i>
+            </div>
+            <span asp-validation-for="File1" class="text-danger"></span>
+
+            <div class="text-box">
+                <input type="file" asp-for="File2" accept="image/*">
+                <i class='bx bxs-camera'></i>
+            </div>
+            <span asp-validation-for="File2" class="text-danger"></span>
+
+            <div class="text-box">
+                <input type="file" asp-for="File3" accept="image/*">
+                <i class='bx bxs-camera'></i>
+                <span asp-validation-for="File3" class="text-danger"></span>
+            </div>
+
+
+
+            <button type="submit" class="btn">Crear</button>
+            <div class="register-link">
+               
+                <p>
+                    Back to Home
+                    <a asp-controller="Propiedad" asp-action="MantPropiedades">Back</a>
+                </p>
+            </div>
+
+        </form>
+    </div>
+    <script src="script.js"></script>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>
+

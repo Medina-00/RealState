@@ -1,0 +1,176 @@
+﻿@using RealState.Core.Application.Dtos.Account.Response
+@using Microsoft.AspNetCore.Http
+@using RealState.Core.Application.Helpers;
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    var User = httpContextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
+    var Cliente = User != null ? User.Roles.Any(r => r == "Cliente") : false;
+    var Agente = User != null ? User.Roles.Any(r => r == "Agente") : false;
+    var Administrador = User != null ? User.Roles.Any(r => r == "Administrador") : false;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - RealState</title>
+    <link rel="stylesheet" href="~/css/site.css">
+    <!-- Links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+</head>
+<body>
+     @if (User == null)
+    {
+        <header class="header">
+
+            <nav class="navbar nav-1">
+                <section class="flex">
+                    <a asp-controller="Propiedad" asp-action="Index" class="logo"><i class="fas fa-house"></i>RealState M.</a>
+
+
+
+                    <div class="menu">
+                        <ul>
+                            <li><a asp-controller="Propiedad" asp-action="Index" asp-route-Id="">Home <i class='bx bxs-home-heart'></i></a></li>
+                            <li><a asp-controller="User" asp-action="Index">Agentes <i class='bx bx-user-circle'></i></a></li>
+                            <li>
+                                <a href="#">account <i class='bx bxs-user-account'></i></a>
+                                <ul>
+                                    <li><a asp-controller="User" asp-action="Login">login</a></li>
+                                    <li><a asp-controller="User" asp-action="Create">register</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </div>
+
+
+                </section>
+            </nav>
+
+
+        </header>
+
+
+
+        
+
+     } 
+
+    @if (Cliente)
+    {
+        <header class="header">
+
+            <nav class="navbar nav-1">
+                <section class="flex">
+                    <a asp-controller="Propiedad" asp-action="Index" class="logo"><i class="fas fa-house"></i>RealState M.</a>
+
+
+
+                    <div class="menu">
+                        <ul>
+                            <li><a asp-controller="Propiedad" asp-action="Index">Home <i class='bx bxs-home-heart'></i></a></li>
+                            <li><a asp-controller="User" asp-action="Index">Agentes <i class='bx bx-user-circle'></i></a></li>
+                            <li><a asp-controller="PropiedadFavorita" asp-action="Index">Propiedades Favoritas <i class='bx bx-user-circle'></i></a></li>
+                            <li>
+                                <a href="#">account <i class='bx bxs-user-account'></i></a>
+                                <ul>
+                                    <li><a asp-controller="User" asp-action="LogOut">Log Out!</a></li>
+                                    
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </div>
+
+
+                </section>
+            </nav>
+
+
+        </header>
+
+       
+    }
+
+    @if (Agente)
+    {
+        <header class="header">
+
+            <nav class="navbar nav-1">
+                <section class="flex">
+                    <a asp-controller="Propiedad" asp-action="Index" class="logo"><i class="fas fa-house"></i>RealState M.</a>
+
+
+
+                    <div class="menu">
+                        <ul>
+                            <li><a asp-controller="Propiedad" asp-action="IndexAgente">Home</a></li>
+                            <li><a asp-controller="User" asp-action="Edit" asp-route-Id="@User!.Id">Mi Perfil</a></li>
+                            <li><a asp-controller="Propiedad" asp-action="MantPropiedades">Mant Propiedades</a></li>
+                            <li>
+                                <a href="#">account <i class='bx bxs-user-account'></i></a>
+                                <ul>
+                                    <li><a asp-controller="User" asp-action="LogOut">Log Out!</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </div>
+
+
+                </section>
+            </nav>
+
+
+        </header>
+
+
+    }
+
+   
+
+    
+    
+
+       
+                @RenderBody()
+           
+    
+
+@* 
+    
+
+ *@
+    <footer class="footer">
+
+       <section class="flex">
+
+          <div class="box">
+                <a href="tel:8097537245"><i class="fas fa-phone"></i><span>8097537245</span></a>
+                <a href="mailto:lmorelmedina@gmail.com"><i class="fas fa-envelope"></i><span>lmorelmedina@gmail.com</span></a>
+          </div>
+
+          
+
+          <div class="box">
+             <a href="#"><span>facebook</span><i class="fab fa-facebook-f"></i></a>
+             <a href="#"><span>twitter</span><i class="fab fa-twitter"></i></a>
+             <a href="#"><span>linkedin</span><i class="fab fa-linkedin"></i></a>
+             <a href="#"><span>instagram</span><i class="fab fa-instagram"></i></a>
+
+          </div>
+
+       </section>
+
+      
+
+    </footer>
+
+
+
+</body>
+</html>
